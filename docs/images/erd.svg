@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 620" font-family="system-ui,sans-serif" font-size="12">
+  <style>
+    .box{fill:#1e293b;stroke:#334155;stroke-width:1.5;rx:8}
+    .head{fill:#334155;rx:8}
+    .title{fill:#e2e8f0;font-weight:700;font-size:13px}
+    .col{fill:#94a3b8;font-size:11px}
+    .pk{fill:#60a5fa}
+    .fk{fill:#f472b6}
+    .line{stroke:#475569;stroke-width:1.5;fill:none;marker-end:url(#arrow)}
+    .label{fill:#64748b;font-size:10px;font-style:italic}
+    @media(prefers-color-scheme:light){
+      .box{fill:#fff;stroke:#e2e8f0}
+      .head{fill:#f1f5f9}
+      .title{fill:#0f172a}
+      .col{fill:#475569}
+      .line{stroke:#cbd5e1}
+      .label{fill:#94a3b8}
+    }
+  </style>
+  <defs><marker id="arrow" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#475569"/></marker></defs>
+
+  <!-- User -->
+  <rect class="box" x="20" y="20" width="200" height="200"/>
+  <rect class="head" x="20" y="20" width="200" height="28"/>
+  <text class="title" x="120" y="39" text-anchor="middle">User</text>
+  <text class="pk" x="30" y="62">PK id (UUID)</text>
+  <text class="col" x="30" y="78">name, email (UNIQUE)</text>
+  <text class="col" x="30" y="94">phone, password_hash</text>
+  <text class="col" x="30" y="110">role (USER|STAFF|MANAGER)</text>
+  <text class="col" x="30" y="126">is_active (boolean)</text>
+  <text class="col" x="30" y="142">created_at, updated_at</text>
+
+  <!-- Session -->
+  <rect class="box" x="20" y="260" width="200" height="100"/>
+  <rect class="head" x="20" y="260" width="200" height="28"/>
+  <text class="title" x="120" y="279" text-anchor="middle">Session</text>
+  <text class="pk" x="30" y="302">PK id (string)</text>
+  <text class="fk" x="30" y="318">FK user_id → User</text>
+  <text class="col" x="30" y="334">expires_at</text>
+
+  <!-- Category -->
+  <rect class="box" x="20" y="400" width="200" height="90"/>
+  <rect class="head" x="20" y="400" width="200" height="28"/>
+  <text class="title" x="120" y="419" text-anchor="middle">Category</text>
+  <text class="pk" x="30" y="442">PK id (UUID)</text>
+  <text class="col" x="30" y="458">name (UNIQUE)</text>
+  <text class="col" x="30" y="474">description</text>
+
+  <!-- Ticket -->
+  <rect class="box" x="300" y="20" width="240" height="260"/>
+  <rect class="head" x="300" y="20" width="240" height="28"/>
+  <text class="title" x="420" y="39" text-anchor="middle">Ticket</text>
+  <text class="pk" x="310" y="62">PK id (UUID)</text>
+  <text class="col" x="310" y="78">code (UNIQUE), title</text>
+  <text class="col" x="310" y="94">description, status</text>
+  <text class="col" x="310" y="110">difficulty_level (1-3)</text>
+  <text class="col" x="310" y="126">resolution_note</text>
+  <text class="col" x="310" y="142">pending_reason</text>
+  <text class="fk" x="310" y="162">FK category_id → Category</text>
+  <text class="fk" x="310" y="178">FK user_id → User (creator)</text>
+  <text class="fk" x="310" y="194">FK staff_id → User (handler)</text>
+  <text class="col" x="310" y="214">created_at, updated_at</text>
+
+  <!-- TicketAttachment -->
+  <rect class="box" x="300" y="320" width="240" height="140"/>
+  <rect class="head" x="300" y="320" width="240" height="28"/>
+  <text class="title" x="420" y="339" text-anchor="middle">TicketAttachment</text>
+  <text class="pk" x="310" y="362">PK id (UUID)</text>
+  <text class="col" x="310" y="378">filename, filepath</text>
+  <text class="col" x="310" y="394">filetype, filesize</text>
+  <text class="fk" x="310" y="414">FK ticket_id → Ticket</text>
+  <text class="col" x="310" y="430">uploaded_by, created_at</text>
+
+  <!-- Chat -->
+  <rect class="box" x="620" y="20" width="220" height="180"/>
+  <rect class="head" x="620" y="20" width="220" height="28"/>
+  <text class="title" x="730" y="39" text-anchor="middle">Chat</text>
+  <text class="pk" x="630" y="62">PK id (UUID)</text>
+  <text class="col" x="630" y="78">message</text>
+  <text class="col" x="630" y="94">attachment_url, type</text>
+  <text class="col" x="630" y="110">is_voice_note</text>
+  <text class="fk" x="630" y="130">FK ticket_id → Ticket</text>
+  <text class="fk" x="630" y="146">FK sender_id → User</text>
+  <text class="col" x="630" y="166">created_at</text>
+
+  <!-- LeaderboardLog -->
+  <rect class="box" x="620" y="240" width="220" height="160"/>
+  <rect class="head" x="620" y="240" width="220" height="28"/>
+  <text class="title" x="730" y="259" text-anchor="middle">LeaderboardLog</text>
+  <text class="pk" x="630" y="282">PK id (UUID)</text>
+  <text class="col" x="630" y="298">points</text>
+  <text class="col" x="630" y="314">period_month, period_year</text>
+  <text class="fk" x="630" y="334">FK staff_id → User</text>
+  <text class="fk" x="630" y="350">FK ticket_id → Ticket</text>
+  <text class="col" x="630" y="370">created_at</text>
+
+  <!-- WA_Setting -->
+  <rect class="box" x="620" y="440" width="220" height="120"/>
+  <rect class="head" x="620" y="440" width="220" height="28"/>
+  <text class="title" x="730" y="459" text-anchor="middle">WA_Setting</text>
+  <text class="pk" x="630" y="482">PK id (UUID)</text>
+  <text class="col" x="630" y="498">is_enabled, session_data</text>
+  <text class="col" x="630" y="514">connection_status</text>
+  <text class="col" x="630" y="530">updated_at</text>
+
+  <!-- Notification_Template -->
+  <rect class="box" x="300" y="500" width="240" height="110"/>
+  <rect class="head" x="300" y="500" width="240" height="28"/>
+  <text class="title" x="420" y="519" text-anchor="middle">Notification_Template</text>
+  <text class="pk" x="310" y="542">PK id (UUID)</text>
+  <text class="col" x="310" y="558">event_type (UNIQUE)</text>
+  <text class="col" x="310" y="574">template_body, variables</text>
+  <text class="col" x="310" y="590">created_at, updated_at</text>
+
+  <!-- Relations -->
+  <!-- User → Ticket (creator) -->
+  <path class="line" d="M220,80 L300,80"/>
+  <text class="label" x="250" y="74">1:N creates</text>
+
+  <!-- User → Ticket (staff) -->
+  <path class="line" d="M220,120 L300,120"/>
+  <text class="label" x="245" y="114">1:N handles</text>
+
+  <!-- User → Session -->
+  <path class="line" d="M120,220 L120,260"/>
+  <text class="label" x="130" y="244">1:N</text>
+
+  <!-- Category → Ticket -->
+  <path class="line" d="M220,440 Q270,440 270,200 L300,200"/>
+  <text class="label" x="255" y="230">1:N</text>
+
+  <!-- Ticket → Chat -->
+  <path class="line" d="M540,60 L620,60"/>
+  <text class="label" x="565" y="54">1:N</text>
+
+  <!-- Ticket → Attachment -->
+  <path class="line" d="M420,280 L420,320"/>
+  <text class="label" x="430" y="304">1:N</text>
+
+  <!-- Ticket → LeaderboardLog -->
+  <path class="line" d="M540,160 Q590,160 590,300 L620,300"/>
+  <text class="label" x="555" y="230">1:N</text>
+
+  <!-- User → Chat (sender) -->
+  <path class="line" d="M220,60 Q260,10 700,10 L700,20"/>
+  <text class="label" x="450" y="8">sends</text>
+
+  <!-- User → LeaderboardLog -->
+  <path class="line" d="M220,140 Q260,140 260,340 Q260,380 600,340 L620,340"/>
+  <text class="label" x="440" y="374">earns</text>
+
+  <!-- Legend -->
+  <rect x="20" y="530" width="200" height="80" rx="8" fill="none" stroke="#334155" stroke-dasharray="4"/>
+  <text class="title" x="30" y="550">Legend</text>
+  <text class="pk" x="30" y="570">■ Primary Key</text>
+  <text class="fk" x="30" y="586">■ Foreign Key</text>
+  <text class="col" x="30" y="602">■ Column</text>
+</svg>
